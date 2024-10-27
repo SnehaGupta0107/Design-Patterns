@@ -18,5 +18,4 @@ class FancyLogger {
 }
 
 const logger = new FancyLogger()
-Object.freeze(logger)
 export default logger
