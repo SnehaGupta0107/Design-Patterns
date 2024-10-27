@@ -8,3 +8,9 @@ export default function logFirstImplementation() {
   logger.log('First file')
   logger.printLogCount()
 }
+/*
+
+OUTPUT: 0
+First file
+1
+*/
