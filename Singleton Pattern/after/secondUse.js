@@ -5,3 +5,9 @@ export default function logSecondImplementation() {
   logger.log('Second File')
   logger.printLogCount()
 }
+/*
+
+OUTPUT: 1 Logs
+Fancy: Second File
+2 Logs
+*/
