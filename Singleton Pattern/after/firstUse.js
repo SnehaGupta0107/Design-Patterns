@@ -5,3 +5,10 @@ export default function logFirstImplementation() {
   logger.log('First File')
   logger.printLogCount()
 }
+
+/*
+
+OUTPUT: 0 Logs
+Fancy: First file
+1 Logs
+*/
