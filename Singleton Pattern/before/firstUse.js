@@ -10,7 +10,7 @@ export default function logFirstImplementation() {
 }
 /*
 
-OUTPUT: 0
-First file
-1
+OUTPUT: 0 Logs
+Fancy: First file
+1 Logs
 */
