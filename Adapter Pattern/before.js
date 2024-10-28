@@ -1,35 +1,27 @@
-// Existing class with a specific interface
-class MediaPlayer {
-    playFile(fileName) {
-        console.log("Playing audio file:", fileName);
+// Third-party API with incompatible data format
+class ThirdPartyAPI {
+    getUserData() {
+        return {
+            firstName: "John",
+            lastName: "Doe",
+            birthDate: "1990-01-01"
+        };
     }
 }
 
-// New class with a different interface
-class AdvancedAudioPlayer {
-    playMp3(fileName) {
-        console.log("Playing MP3 file:", fileName);
-    }
-
-    playWav(fileName) {
-        console.log("Playing WAV file:", fileName);
-    }
+// Application function that expects a different format
+function displayUser(user) {
+    console.log(`Name: ${user.fullName}, Age: ${user.age}`);
 }
 
-// Trying to use AdvancedAudioPlayer without an adapter
-const player = new MediaPlayer();
-const advancedPlayer = new AdvancedAudioPlayer();
+// Using the third-party API without an adapter
+const api = new ThirdPartyAPI();
+const data = api.getUserData();
 
-// Now you have to write conditional logic to handle different formats
-function play(fileName) {
-    if (fileName.endsWith(".mp3")) {
-        advancedPlayer.playMp3(fileName); // Direct call to AdvancedAudioPlayer
-    } else if (fileName.endsWith(".wav")) {
-        advancedPlayer.playWav(fileName); // Direct call to AdvancedAudioPlayer
-    } else {
-        console.log("Unsupported file format");
-    }
-}
+// Manually transforming data every time it's used
+const user = {
+    fullName: `${data.firstName} ${data.lastName}`,
+    age: new Date().getFullYear() - new Date(data.birthDate).getFullYear()
+};
 
-play("song.mp3"); // Playing MP3 file: song.mp3
-play("song.wav"); // Playing WAV file: song.wav
+displayUser(user);  // Output: Name: John Doe, Age: 34
