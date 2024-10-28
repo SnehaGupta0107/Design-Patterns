@@ -1,42 +1,38 @@
-// Existing class with a specific interface
-class MediaPlayer {
-    playFile(fileName) {
-        console.log("Playing audio file:", fileName);
+// Third-party API with incompatible data format
+class ThirdPartyAPI {
+    getUserData() {
+        return {
+            firstName: "John",
+            lastName: "Doe",
+            birthDate: "1990-01-01"
+        };
     }
 }
 
-// New class with a different interface
-class AdvancedAudioPlayer {
-    playMp3(fileName) {
-        console.log("Playing MP3 file:", fileName);
+// Adapter class to standardize the data format
+class UserAdapter {
+    constructor(api) {
+        this.api = api;
     }
 
-    playWav(fileName) {
-        console.log("Playing WAV file:", fileName);
-    }
-}
-
-// Adapter class to make AdvancedAudioPlayer compatible with MediaPlayer
-class AudioPlayerAdapter extends MediaPlayer {
-    constructor(advancedPlayer) {
-        super();
-        this.advancedPlayer = advancedPlayer;
-    }
-
-    playFile(fileName) {
-        if (fileName.endsWith(".mp3")) {
-            this.advancedPlayer.playMp3(fileName);
-        } else if (fileName.endsWith(".wav")) {
-            this.advancedPlayer.playWav(fileName);
-        } else {
-            console.log("File format not supported");
-        }
+    getUser() {
+        const data = this.api.getUserData();
+        // Transform the data to the format our application expects
+        return {
+            fullName: `${data.firstName} ${data.lastName}`,
+            age: new Date().getFullYear() - new Date(data.birthDate).getFullYear()
+        };
     }
 }
 
-// Usage with Adapter
-const advancedAudioPlayer = new AdvancedAudioPlayer();
-const player = new AudioPlayerAdapter(advancedAudioPlayer);
+// Application function that expects the standardized format
+function displayUser(user) {
+    console.log(`Name: ${user.fullName}, Age: ${user.age}`);
+}
 
-player.playFile("song.mp3"); // Output: "Playing MP3 file: song.mp3"
-player.playFile("song.wav"); // Output: "Playing WAV file: song.wav"
+// Using the adapter to transform the data
+const api = new ThirdPartyAPI();
+const adapter = new UserAdapter(api);
+const user = adapter.getUser();
+
+displayUser(user);  // Output: Name: John Doe, Age: 34
