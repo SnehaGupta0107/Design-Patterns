@@ -11,6 +11,6 @@ export default function logSecondImplementation() {
 /*
 
 OUTPUT: 0 Logs
-Fancy: First file
+Fancy: Second file
 1 Logs
 */
